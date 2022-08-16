@@ -1,0 +1,26 @@
+.h-410 {
+  height: 410px;
+}
+
+.mh-700 {
+  max-height: 700px;
+}
+
+.navbar-btn {
+  width: 45px;
+  height: 45px;
+}
+
+.navbar-cl {
+  height: 65px;
+  margin-top: -1px;
+  padding: 0 30px;
+}
+
+.categoryBG {
+  background-color: var(--categroyBG);
+}
+
+.padding_1rem {
+  padding: 1rem;
+}
