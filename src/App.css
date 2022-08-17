@@ -8,3 +8,11 @@
   --topbarBG: #EDF1FF;
   --categroyBG: #D19C97;
 }
+
+.p-30 {
+  padding: 30px;
+}
+
+.transform-07 {
+  transform: scale(0.7);
+}
