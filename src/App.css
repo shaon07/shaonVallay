@@ -33,8 +33,27 @@
   width: 130px;
 }
 
+.w-100p {
+  width: 100px;
+}
+
+.w-50p {
+  width: 50px;
+}
+
 .sliding {
   display: block;
   position: absolute;
   background: white;
+}
+
+.selected_filter {
+  background: antiquewhite;
+  padding: 0.3rem 2rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.cursor_pointer {
+  cursor: pointer;
 }

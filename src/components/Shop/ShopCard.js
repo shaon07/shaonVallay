@@ -7,18 +7,40 @@ import ShortBy from "./ShortBy";
 export default function ShopCard() {
   const product_data = useSelector(state => state.getProductReducer);
   const [totalShow, setTotalShow] = useState(12);
-  const [searchInput, setSearchInput] = useState('')
+  const [searchInput, setSearchInput] = useState('');
+  const [filterByCategory, setFilterByCategory] = useState([]);
 
-  const filteredData = product_data?.state?.data.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase()));
-  console.log(filteredData)
+
+  // will start work without redux from tomorrow
+
+  // const [newProduct, setNewProduct] = useState([]);
+
+  // useEffect(() => {
+  //   fetch(`https://server.buniyadi.craftedsys.com/api/product`)
+  //     .then(res => {
+  //       if (res.status === 200) {
+  //         return res.json()
+  //       }
+  //     })
+  //     .then(res => setNewProduct(res))
+  //     .then(err => console.log(err))
+  // }, []);
+
+  // console.log(newProduct)
+
+
+  const filteredData = product_data?.state?.data.filter(item => item.title.toLowerCase().includes(searchInput.toLowerCase())).filter(item => item.url.includes(filterByCategory.map((item) => item)));
 
   const handleProductShow = () => {
     setTotalShow(totalShow + 12)
   }
+
+
+
   return (
     <div className="container-fluid pt-5 pb-5">
       <div className="row px-xl-5">
-        <FilterBy />
+        <FilterBy setFilterByCategory={setFilterByCategory} />
         <div className="col-lg-9 col-md-12">
           <div className="row pb-3">
             <ShortBy searchInput={searchInput} setSearchInput={setSearchInput} />
