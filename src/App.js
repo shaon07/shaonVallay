@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Detail from "./components/Details/Detail";
 import MainHome from "./components/MainHome";
+import Shop from "./components/Shop/Shop";
 import { CALL_API_action, GET_BRAND_API, GET_CATEGPRY_API, GET_PRODUCT_API } from "./redux/actions/GET_API_ACTION";
 
 const callAPI = (url, fn) => {
@@ -26,7 +29,12 @@ function App() {
     dispatch(callAPI(brand_API_URL, GET_BRAND_API));
   })
   return (
-    <MainHome />
+    <Routes>
+      <Route exact path="/" element={<MainHome />} />
+      <Route exact path="/detail/:id" element={<Detail />} />
+      <Route exact path="/shop" element={<Shop />} />
+    </Routes>
+
   );
 }
 

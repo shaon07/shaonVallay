@@ -16,3 +16,25 @@
 .transform-07 {
   transform: scale(0.7);
 }
+
+.mx-100 {
+  max-width: 100%;
+}
+
+.min-height {
+  min-height: 300px;
+}
+
+.w-45 {
+  width: 45px;
+}
+
+.w-130 {
+  width: 130px;
+}
+
+.sliding {
+  display: block;
+  position: absolute;
+  background: white;
+}
