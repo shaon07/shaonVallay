@@ -1,18 +1,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import React from 'react';
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Slider from "react-slick";
 
 export default function DetailCard() {
   const { id } = useParams();
-  const product_list = useSelector(state => state.getProductReducer);
-  const product_data = product_list?.state?.data;
 
-  const selected_product = product_data?.filter(item => item._id === id)
+  const [singleProduct, setSingleProduct] = useState([]);
 
-  console.log(id, selected_product)
+  useEffect(() => {
+    fetch(`https://server.buniyadi.craftedsys.com/api/product/${id}?resolveCategory=1&resolvePrimaryCategory=1&resolveBrand=1&resolveTag=1&resolveCover=1&resolveImage=1`)
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          console.log(res.status)
+        }
+      })
+      .then(res => setSingleProduct([res]))
+      .catch(err => console.log(err));
+  }, [id])
+
+
   const settings = {
     dots: true,
     fade: true,
@@ -25,7 +35,7 @@ export default function DetailCard() {
   return (
     <div className="container-fluid py-5">
       {
-        selected_product?.map((item, ind) => {
+        singleProduct?.map((item, ind) => {
           const selected_product_title = item.title;
           const selected_product_shortDescription = item.shortDescription;
           const selected_product_Description = item.description;
@@ -36,6 +46,7 @@ export default function DetailCard() {
           const selected_product_available = item?.variation[0].stock.available;
           const selected_unit = item?.unit;
 
+
           return (
             <div key={ind}>
               <div className="row px-xl-5">
@@ -43,7 +54,7 @@ export default function DetailCard() {
 
                   <Slider {...settings}>
                     <div>
-                      <img className="m-auto" src={`https://server.buniyadi.craftedsys.com/api/image/serve/${selected_product_image[0]}?width=400&height=400&quality=75&format=webp&fit=contain&bg=fff`} alt={`${selected_product_title} image`} />
+                      <img className="m-auto" src={`https://server.buniyadi.craftedsys.com/api/image/serve/${selected_product_image[0]._id}?width=400&height=400&quality=75&format=webp&fit=contain&bg=fff`} alt={`${selected_product_title} image`} />
                     </div>
 
                   </Slider>

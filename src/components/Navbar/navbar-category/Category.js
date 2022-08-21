@@ -1,11 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
 
 
 const Category = () => {
-  const sidebar_category = useSelector(state => state.getCategoryReducer);
-  const [showCategory, setShowCategory] = useState(true)
+  const [showCategory, setShowCategory] = useState(true);
+
+  const [category, setCategory] = useState([]);
+
+  useEffect(() => {
+    fetch('https://server.buniyadi.craftedsys.com/api/category')
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          console.log(res.status)
+        }
+      })
+      .then(res => setCategory(res))
+      .catch(err => console.log(err))
+  }, [])
+
 
   return (
     <div className="col-lg-3 d-none d-lg-block p-2">
@@ -16,7 +30,7 @@ const Category = () => {
       <nav className="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
         <div className="navbar-nav w-100 overflow-hidden h-410 px-3 sliding" style={{ display: showCategory ? "block" : "none" }}>
           {
-            sidebar_category?.state?.data.map((item, ind) => {
+            category?.data?.map((item, ind) => {
               return (
                 <a href="" className="nav-item nav-link" key={ind}>{item.title}</a>
               )

@@ -1,17 +1,30 @@
-import React from 'react';
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
 
 export default function Brand() {
-  const brand_data = useSelector(state => state.getBrandReducer);
-  const brandList = brand_data?.data?.data;
+
+  const [brandName, setBrandName] = useState([]);
+
+  useEffect(() => {
+    fetch("https://server.buniyadi.craftedsys.com/api/brand?resolveCover=1&resolveImage=1&productCount=1")
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          console.log(res.status)
+        }
+      })
+      .then(res => setBrandName(res))
+      .catch(err => console.log(err))
+  }, []);
+
   return (
     <div className="container-fluid py-5">
       <div className="row px-xl-5" >
         {
-          brandList === undefined ? "Loading" : <>
+          brandName === undefined ? "Loading" : <>
             {
-              brandList.map((item, ind) => {
-                const brandLogo = item?.image[0]
+              brandName?.data?.map((item, ind) => {
+                const brandLogo = item?.image[0]._id
                 return (
 
                   <div className="col-12" key={ind}>

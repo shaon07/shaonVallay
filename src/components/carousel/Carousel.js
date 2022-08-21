@@ -1,12 +1,25 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-import { useSelector } from "react-redux";
 
 
 export default function Carousel() {
-  const product_datas = useSelector(state => state.getProductReducer);
+
+  const [products, setProduct] = useState([]);
+
+  useEffect(() => {
+    fetch("https://server.buniyadi.craftedsys.com/api/product")
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          console.log(res.status)
+        }
+      })
+      .then(res => setProduct(res))
+      .then(err => console.log(err))
+  },[])
 
   const settings = {
     className: "",
@@ -21,7 +34,7 @@ export default function Carousel() {
     <Slider {...settings}>
 
       {
-        product_datas?.state?.data.slice(0, 30).map((item, ind) => {
+        products?.data?.slice(0, 30).map((item, ind) => {
           const product_image_ID = item?.image[0];
           return (
             <div key={ind}>

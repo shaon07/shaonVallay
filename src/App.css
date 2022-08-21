@@ -57,3 +57,25 @@
 .cursor_pointer {
   cursor: pointer;
 }
+
+.reset-btn {
+  font-size: 12px;
+  background: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 32px;
+  cursor: pointer;
+
+}
+
+.border-none {
+  border: none;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}

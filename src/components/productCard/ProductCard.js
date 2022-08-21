@@ -1,15 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
 import ProductCardBox from "./ProductCardBox";
 
 export default function ProductCard() {
-  const product_data = useSelector(state => state.getProductReducer);
+  const [products,setProducts] = useState([]);
   const [totalShow, setTotalShow] = useState(12);
 
   const handleProductShow = () => {
     setTotalShow(totalShow + 12)
   }
+
+  useEffect(()=>{
+    fetch("https://server.buniyadi.craftedsys.com/api/product")
+    .then(res=>{
+      if(res.status===200){
+        return res.json()
+      }
+    })
+    .then(res=>setProducts(res))
+    .catch(err=>console.log(err))
+  },[])
 
 
 
@@ -20,7 +30,7 @@ export default function ProductCard() {
       </div>
       <div className="row px-xl-5 pb-3">
         {
-          product_data?.state?.data.slice(0, totalShow).map((item, ind) => {
+          products?.data?.slice(0, totalShow).map((item, ind) => {
             return (
               <div className="col-lg-3 col-md-6 col-sm-12 pb-1" key={ind}>
                 <ProductCardBox item={item} ind={ind} />
@@ -32,7 +42,7 @@ export default function ProductCard() {
       <div className="row justify-content-center">
         <div className="buttonSec text-center">
           {
-            product_data?.state?.data.length < totalShow ? "" : <button onClick={handleProductShow} className="btn btn-primary rounded text-white">Load More</button>
+            products?.data?.length < totalShow ? "" : <button onClick={handleProductShow} className="btn btn-primary rounded text-white">Load More</button>
           }
 
         </div>

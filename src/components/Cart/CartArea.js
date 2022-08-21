@@ -1,6 +1,9 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from "react-redux";
 
 export default function CartArea() {
+  const cartData = useSelector(state => state.cartReducer);
+  console.log(cartData.data)
   return (
     <div>
       <div className="container-fluid pt-5">
@@ -17,27 +20,35 @@ export default function CartArea() {
                 </tr>
               </thead>
               <tbody className="align-middle">
-                <tr>
-                  <td className="align-middle"><img src="img/product-1.jpg w-50p" alt="" /> Colorful Stylish Shirt</td>
-                  <td className="align-middle">$150</td>
-                  <td className="align-middle">
-                    <div className="input-group quantity mx-auto w-100p">
-                      <div className="input-group-btn">
-                        <button className="btn btn-sm btn-primary btn-minus" >
-                          <i className="fa fa-minus"></i>
-                        </button>
-                      </div>
-                      <input type="text" className="form-control form-control-sm bg-secondary text-center" value="1" />
-                        <div className="input-group-btn">
-                          <button className="btn btn-sm btn-primary btn-plus">
-                            <i className="fa fa-plus"></i>
-                          </button>
-                        </div>
-                    </div>
-                  </td>
-                  <td className="align-middle">$150</td>
-                  <td className="align-middle"><button className="btn btn-sm btn-primary"><i className="fa fa-times"></i></button></td>
-                </tr>
+                {
+                  cartData.data.map((item, ind) => {
+                    return (
+                      <tr key={ind}>
+                        <td className="align-middle"><img src={`https://server.buniyadi.craftedsys.com/api/image/serve/${item.image[0]}?width=50&height=100&quality=75&format=webp&fit=contain&bg=fff
+`} alt="" />{item.title}</td>
+                        <td className="align-middle">{item.variation[0].price.regular}</td>
+                        <td className="align-middle">
+                          <div className="input-group quantity mx-auto w-100p">
+                            <div className="input-group-btn">
+                              <button className="btn btn-sm btn-primary btn-minus" >
+                                <i className="fa fa-minus"></i>
+                              </button>
+                            </div>
+                            <input type="text" className="form-control form-control-sm bg-secondary text-center" value="1" />
+                            <div className="input-group-btn">
+                              <button className="btn btn-sm btn-primary btn-plus">
+                                <i className="fa fa-plus"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="align-middle">{item.variation[0].price.regular}</td>
+                        <td className="align-middle"><button className="btn btn-sm btn-primary"><i className="fa fa-times"></i></button></td>
+                      </tr>
+                    )
+                  })
+                }
+
               </tbody>
             </table>
           </div>
@@ -45,9 +56,9 @@ export default function CartArea() {
             <form className="mb-5" action="">
               <div className="input-group">
                 <input type="text" className="form-control p-4" placeholder="Coupon Code" />
-                  <div className="input-group-append">
-                    <button className="btn btn-primary">Apply Coupon</button>
-                  </div>
+                <div className="input-group-append">
+                  <button className="btn btn-primary">Apply Coupon</button>
+                </div>
               </div>
             </form>
             <div className="card border-secondary mb-5">

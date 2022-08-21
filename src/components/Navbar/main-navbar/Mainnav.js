@@ -21,7 +21,8 @@ export default function Mainnav() {
             <Link to={`/shop`}>
               <a className="nav-item nav-link">Shop</a>
             </Link>
-            <div className={`nav-item dropdown ${show ? "show" : ""}`} onClick={() => setShow(!show)}>
+            <div className={`nav-item dropdown ${show ? "show" : ""}`} 
+            onClick={() => setShow(!show)} >
               <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
               <div className={`dropdown-menu rounded-0 m-0 ${show ? "show" : ""}`}>
                 <Link to="/cart">
