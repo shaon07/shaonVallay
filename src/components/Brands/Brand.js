@@ -24,7 +24,7 @@ export default function Brand() {
           brandName === undefined ? "Loading" : <>
             {
               brandName?.data?.map((item, ind) => {
-                const brandLogo = item?.image[0]._id
+                const brandLogo = item?.image[0]?._id
                 return (
 
                   <div className="col-12" key={ind}>
